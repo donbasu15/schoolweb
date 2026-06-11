@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { GraduationCap, ShieldCheck, Phone, Mail, MapPin } from 'lucide-react';
+import { GraduationCap, ShieldCheck, Phone, Mail, MapPin, Lock } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -86,12 +86,18 @@ export default function Footer() {
         </div>
 
         {/* Bottom Banner */}
-        <div className="mt-12 border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <div className="mt-12 border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4 text-center sm:text-left">
           <p>© {currentYear} Vidyalaya Academy. All Rights Reserved. Designed in compliance with CBSE & RTE standards.</p>
-          <div className="flex space-x-4">
-            <Link href="/board-disclosure" className="hover:underline">Right to Education (RTE) Compliance</Link>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 justify-center sm:justify-end text-slate-400">
+            <Link href="/board-disclosure" className="hover:underline hover:text-brand-gold transition-colors">Right to Education (RTE) Compliance</Link>
             <span>•</span>
-            <Link href="/admin/login" className="hover:underline">Staff Login</Link>
+            <Link 
+              href="/admin/login" 
+              className="hover:underline hover:text-brand-gold transition-colors flex items-center space-x-1 text-slate-350 font-semibold"
+            >
+              <Lock className="h-3.5 w-3.5" />
+              <span>Admin & Staff Login</span>
+            </Link>
           </div>
         </div>
       </div>

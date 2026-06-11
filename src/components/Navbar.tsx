@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import { getSession, getInspectorSession } from '@/lib/auth';
 import { logoutAction } from '@/lib/actions';
-import { GraduationCap, Lock, ShieldCheck, LogOut, Menu } from 'lucide-react';
+import { GraduationCap, Lock, ShieldCheck, LogOut } from 'lucide-react';
 import React from 'react';
+import MobileMenu from './MobileMenu';
 
 export default async function Navbar() {
   const session = await getSession();
@@ -54,18 +55,18 @@ export default async function Navbar() {
           {inspectorSession && (
             <Link
               href="/board-inspection-hub"
-              className="hidden sm:flex items-center space-x-1 text-xs font-semibold px-3 py-1.5 rounded-lg bg-green-50 text-green-700 border border-green-200"
+              className="hidden sm:flex items-center space-x-1 text-xs font-semibold px-3 py-1.5 rounded-lg bg-green-50 text-green-700 border border-green-200 animate-pulse"
             >
-              <ShieldCheck className="h-3.5 w-3.5" />
+              <ShieldCheck className="h-3.5 w-3.5 animate-spin" style={{ animationDuration: '3s' }} />
               <span>Inspector Mode</span>
             </Link>
           )}
 
           {session ? (
-            <div className="flex items-center space-x-3">
+            <div className="hidden sm:flex items-center space-x-3">
               <Link
                 href="/admin"
-                className="hidden sm:flex items-center space-x-1.5 text-xs font-semibold px-4 py-2 rounded-lg bg-brand-blue text-white shadow hover:bg-slate-800 transition-colors"
+                className="flex items-center space-x-1.5 text-xs font-semibold px-4 py-2 rounded-lg bg-brand-blue text-white shadow hover:bg-slate-800 transition-colors"
               >
                 <Lock className="h-3.5 w-3.5" />
                 <span>Admin Dashboard</span>
@@ -74,7 +75,7 @@ export default async function Navbar() {
               <form action={logoutAction}>
                 <button
                   type="submit"
-                  className="flex items-center justify-center p-2 rounded-lg text-slate-500 hover:text-red-600 hover:bg-red-50 transition-colors"
+                  className="flex items-center justify-center p-2 rounded-lg text-slate-500 hover:text-red-650 hover:bg-red-50 transition-colors"
                   title="Logout Session"
                 >
                   <LogOut className="h-5 w-5" />
@@ -82,32 +83,23 @@ export default async function Navbar() {
               </form>
             </div>
           ) : (
-            <div className="flex items-center space-x-2">
+            <div className="hidden sm:flex items-center space-x-2">
               <Link
                 href="/board-inspection-hub"
-                className="hidden sm:flex items-center space-x-1 text-xs font-medium text-slate-500 hover:text-brand-blue px-3 py-2 rounded-lg"
+                className="flex items-center space-x-1 text-xs font-medium text-slate-550 hover:text-brand-blue px-3 py-2 rounded-lg border border-slate-100 hover:border-slate-200 transition-all bg-white"
               >
                 <ShieldCheck className="h-4 w-4 text-slate-400" />
                 <span>Inspect Hub</span>
               </Link>
-              <Link
-                href="/admin/login"
-                className="flex items-center space-x-1 text-xs font-semibold px-4 py-2 rounded-lg bg-brand-blue text-white hover:bg-brand-dark transition-colors shadow-sm"
-              >
-                <Lock className="h-3.5 w-3.5" />
-                <span>Admin Portal</span>
-              </Link>
             </div>
           )}
 
-          {/* Mobile Menu trigger (simplified for server component, linking to contact/about for routes) */}
-          <Link
-            href="/contact"
-            className="md:hidden flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600"
-            title="Menu"
-          >
-            <Menu className="h-5 w-5" />
-          </Link>
+          {/* Mobile Menu trigger client component */}
+          <MobileMenu 
+            navLinks={navLinks} 
+            hasSession={!!session} 
+            hasInspectorSession={!!inspectorSession} 
+          />
         </div>
 
       </div>
